@@ -21,3 +21,11 @@ C:\Users\Josue\Documents\GitHub\BingBackground\BingBackground\BingBackground\bin
 C:\Users\Josue\Documents\GitHub\BingBackground\BingBackground\BingBackground\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Josue\Documents\GitHub\BingBackground\BingBackground\BingBackground\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Josue\Documents\GitHub\BingBackground\BingBackground\BingBackground\obj\Debug\BingBackground.csprojResolveAssemblyReference.cache
+D:\E\BingBackground\BingBackground\BingBackground\bin\Debug\BingBackground.exe.config
+D:\E\BingBackground\BingBackground\BingBackground\obj\Debug\BingBackground.exe
+D:\E\BingBackground\BingBackground\BingBackground\obj\Debug\BingBackground.pdb
+D:\E\BingBackground\BingBackground\BingBackground\bin\Debug\BingBackground.exe
+D:\E\BingBackground\BingBackground\BingBackground\bin\Debug\BingBackground.pdb
+D:\E\BingBackground\BingBackground\BingBackground\bin\Debug\Newtonsoft.Json.dll
+D:\E\BingBackground\BingBackground\BingBackground\bin\Debug\Newtonsoft.Json.xml
+D:\E\BingBackground\BingBackground\BingBackground\obj\Debug\BingBackground.csprojResolveAssemblyReference.cache

@@ -83,7 +83,7 @@ namespace BingBackground {
         private static string GetBackgroundImagePath() {
             string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "Bing Backgrounds", DateTime.Now.Year.ToString());
             Directory.CreateDirectory(directory);
-            return Path.Combine(directory, DateTime.Now.ToString("M-d-yyyy") + ".bmp");
+            return Path.Combine(directory, DateTime.Now.ToString("yyyy-MM-dd-HH-mm") + ".bmp");
         }
 
         private static void SaveBackground(Image background) {
