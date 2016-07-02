@@ -46,5 +46,53 @@ namespace BingBackground.Properties {
                 this["Position"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("../../BackgroundRec.txt")]
+        public string BackgroundRecFile {
+            get {
+                return ((string)(this["BackgroundRecFile"]));
+            }
+            set {
+                this["BackgroundRecFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("BackGroundImages")]
+        public string ImgSaveFolder {
+            get {
+                return ((string)(this["ImgSaveFolder"]));
+            }
+            set {
+                this["ImgSaveFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US")]
+        public string DownloadSourcePath {
+            get {
+                return ((string)(this["DownloadSourcePath"]));
+            }
+            set {
+                this["DownloadSourcePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.bing.com")]
+        public string DownloadSite {
+            get {
+                return ((string)(this["DownloadSite"]));
+            }
+            set {
+                this["DownloadSite"] = value;
+            }
+        }
     }
 }

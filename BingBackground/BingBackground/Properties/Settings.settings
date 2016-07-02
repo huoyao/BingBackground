@@ -8,5 +8,17 @@
     <Setting Name="Position" Type="System.String" Scope="User">
       <Value Profile="(Default)">Fill</Value>
     </Setting>
+    <Setting Name="BackgroundRecFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">../../BackgroundRec.txt</Value>
+    </Setting>
+    <Setting Name="ImgSaveFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">BackGroundImages</Value>
+    </Setting>
+    <Setting Name="DownloadSourcePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://www.bing.com/HPImageArchive.aspx?format=js&amp;idx=0&amp;n=1&amp;mkt=en-US</Value>
+    </Setting>
+    <Setting Name="DownloadSite" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://www.bing.com</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
