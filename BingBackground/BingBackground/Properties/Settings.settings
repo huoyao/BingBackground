@@ -9,7 +9,7 @@
       <Value Profile="(Default)">Fill</Value>
     </Setting>
     <Setting Name="BackgroundRecFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">../../BackgroundRec.txt</Value>
+      <Value Profile="(Default)">../BackgroundRec.txt</Value>
     </Setting>
     <Setting Name="ImgSaveFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">BackGroundImages</Value>

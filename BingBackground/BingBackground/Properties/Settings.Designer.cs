@@ -49,7 +49,7 @@ namespace BingBackground.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("../../BackgroundRec.txt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("../BackgroundRec.txt")]
         public string BackgroundRecFile {
             get {
                 return ((string)(this["BackgroundRecFile"]));
