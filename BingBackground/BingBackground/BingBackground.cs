@@ -10,7 +10,8 @@
   [SuppressMessage("ReSharper", "FunctionNeverReturns")]
   class BingBackground
   {
-    public static string[] FilePaths;
+    private static string[] FilePaths;
+    private static object locker = new object();
 
     private static void Main(string[] args)
     {
@@ -40,10 +41,14 @@
         var background = BackgroundHandler.DownloadBackground(urlBase);
         BackgroundHandler.SaveBackground(background);
         BackgroundHandler.SetBackground(BackgroundHandler.GetBackgroundImagePath());
-        FilePaths = Directory.GetFiles(
-          Directory.GetParent(BackgroundHandler.ImgSaveFolder).ToString(),
-          "*.*",
-          SearchOption.AllDirectories);
+        lock (locker)
+        {
+          FilePaths = Directory.GetFiles(
+            Directory.GetParent(BackgroundHandler.ImgSaveFolder).ToString(),
+            "*.*",
+            SearchOption.AllDirectories);
+        }
+
       }
     }
 
@@ -52,8 +57,11 @@
       var rand = new Random(int.Parse(DateTime.Now.ToString(CultureInfo.InvariantCulture)));
       while (true)
       {
-        var randIndex = rand.Next(FilePaths.Count());
-        BackgroundHandler.SetBackground(FilePaths[randIndex]);
+        lock (locker)
+        {
+          var randIndex = rand.Next(FilePaths.Count());
+          BackgroundHandler.SetBackground(FilePaths[randIndex]);
+        }
         Thread.Sleep(minus);
       }
     }
