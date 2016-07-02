@@ -12,9 +12,7 @@ namespace BingBackground
   using System.Net;
   using System.Runtime.InteropServices;
   using System.Windows.Forms;
-
   using Microsoft.Win32;
-
   using Newtonsoft.Json;
 
   public enum PicturePosition
