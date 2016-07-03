@@ -1,20 +1,12 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="BackgroundHandler.cs" company="">
-//   
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace BingBackground
+﻿namespace BingBackground
 {
   using System;
   using System.Drawing;
   using System.IO;
-  using System.Linq;
   using System.Net;
   using System.Runtime.InteropServices;
   using System.Windows.Forms;
   using Microsoft.Win32;
-  using Newtonsoft.Json;
 
   public enum PicturePosition
   {
@@ -40,34 +32,42 @@ namespace BingBackground
         Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
         Properties.Settings.Default.ImgSaveFolder,
         DateTime.Now.Year.ToString());
+      if (!File.Exists(BackgroundRecPath)) File.CreateText(BackgroundRecPath);
       using (var sr = new StreamReader(BackgroundRecPath))
       {
         UrlBase = sr.ReadLine();
       }
     }
 
-    private static dynamic DownloadJson()
+    private static string GetUrlBase()
     {
       using (var webClient = new WebClient())
       {
         Console.WriteLine("Downloading JSON...");
-        var jsonString = webClient.DownloadString(Properties.Settings.Default.DownloadSourcePath);
-        var startIndex = jsonString.IndexOf("\"urlbase\":\"", StringComparison.OrdinalIgnoreCase) + 11;
-        var endIndex = jsonString.IndexOf("\",\"copyright\":", StringComparison.OrdinalIgnoreCase);
-        return jsonString.Substring(startIndex, endIndex - startIndex);
+        try
+        {
+          var jsonString = webClient.DownloadString(Properties.Settings.Default.DownloadSourcePath);
+          var startIndex = jsonString.IndexOf("\"urlbase\":\"", StringComparison.OrdinalIgnoreCase) + 11;
+          var endIndex = jsonString.IndexOf("\",\"copyright\":", StringComparison.OrdinalIgnoreCase);
+          return jsonString.Substring(startIndex, endIndex - startIndex);
+        }
+        catch (Exception)
+        {
+          return null;
+        }
       }
     }
 
     public static string GetBackgroundUrlBase()
     {
-      dynamic jsonObject = DownloadJson();
-      return Properties.Settings.Default.DownloadSite + jsonObject;
+      var urlBaseStr = GetUrlBase();
+      return Properties.Settings.Default.DownloadSite + urlBaseStr;
     }
 
     /*
     private static string GetBackgroundTitle()
     {
-      dynamic jsonObject = DownloadJson();
+      dynamic jsonObject = GetUrlBase();
       string copyrightText = jsonObject.images[0].copyright;
       return copyrightText.Substring(0, copyrightText.IndexOf(" (", StringComparison.Ordinal));
     }
@@ -137,7 +137,7 @@ namespace BingBackground
     public static void SaveBackground(Image background)
     {
       Console.WriteLine("Saving background...");
-      background.Save(GetBackgroundImagePath(), System.Drawing.Imaging.ImageFormat.Bmp);
+      background?.Save(GetBackgroundImagePath(), System.Drawing.Imaging.ImageFormat.Bmp);
     }
 
     private static PicturePosition GetPosition()
@@ -175,10 +175,12 @@ namespace BingBackground
     {
       var style = GetPosition();
       Console.WriteLine("Setting background...");
+      if(!File.Exists(imgPath)) return;
       using (var key = Registry.CurrentUser.OpenSubKey(Path.Combine("Control Panel", "Desktop"), true))
       {
         if (key == null)
         {
+          Console.WriteLine("Regist key open failed!");
           return;
         }
 

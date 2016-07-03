@@ -10,17 +10,16 @@
   [SuppressMessage("ReSharper", "FunctionNeverReturns")]
   class BingBackground
   {
-    private static string[] FilePaths;
-    private static object locker = new object();
+    private static string[] filePaths;
+    private static readonly object Locker = new object();
 
     private static void Main(string[] args)
     {
-      FilePaths = Directory.GetFiles(
+      filePaths = Directory.GetFiles(
         Directory.GetParent(BackgroundHandler.ImgSaveFolder).ToString(),
-        "*.*",
-        searchOption: SearchOption.AllDirectories);
+        "*.*", SearchOption.AllDirectories);
       new Thread(UpdateBackgroundFromWeb).Start();
-      if (args.Any() && args[0] == "1" && args.Count() > 1) new Thread(() => ChangeBackgroundLocal(int.Parse(args[1]))).Start();
+      if (args.Count() > 1 && args[0] == "1") new Thread(() => ChangeLocalBackground(int.Parse(args[1]))).Start();
     }
 
     private static void UpdateBackgroundFromWeb()
@@ -41,9 +40,9 @@
         var background = BackgroundHandler.DownloadBackground(urlBase);
         BackgroundHandler.SaveBackground(background);
         BackgroundHandler.SetBackground(BackgroundHandler.GetBackgroundImagePath());
-        lock (locker)
+        lock (Locker)
         {
-          FilePaths = Directory.GetFiles(
+          filePaths = Directory.GetFiles(
             Directory.GetParent(BackgroundHandler.ImgSaveFolder).ToString(),
             "*.*",
             SearchOption.AllDirectories);
@@ -52,15 +51,18 @@
       }
     }
 
-    private static void ChangeBackgroundLocal(int minus)
+    private static void ChangeLocalBackground(int minus)
     {
-      var rand = new Random(int.Parse(DateTime.Now.ToString(CultureInfo.InvariantCulture)));
+      int seed;
+      int.TryParse(DateTime.Now.ToString(CultureInfo.InvariantCulture), out seed);
+      var rand = new Random(seed);
       while (true)
       {
-        lock (locker)
+        lock (Locker)
         {
-          var randIndex = rand.Next(FilePaths.Count());
-          BackgroundHandler.SetBackground(FilePaths[randIndex]);
+          if(!filePaths.Any()) continue;
+          var randIndex = rand.Next(filePaths.Count());
+          BackgroundHandler.SetBackground(filePaths[randIndex]);
         }
         Thread.Sleep(minus);
       }
