@@ -19,7 +19,8 @@
         Directory.GetParent(BackgroundHandler.ImgSaveFolder).ToString(),
         "*.*", SearchOption.AllDirectories);
       new Thread(UpdateBackgroundFromWeb).Start();
-      if (args.Count() > 1 && args[0] == "1") new Thread(() => ChangeLocalBackground(int.Parse(args[1]))).Start();
+      if (Properties.Settings.Default.RunMode == 1)
+        new Thread(() => ChangeLocalBackground(Properties.Settings.Default.ChangeInterval)).Start();
     }
 
     private static void UpdateBackgroundFromWeb()
@@ -59,11 +60,11 @@
       {
         lock (Locker)
         {
-          if(!filePaths.Any()) continue;
+          if (!filePaths.Any()) continue;
           var randIndex = rand.Next(filePaths.Count());
           BackgroundHandler.SetBackground(filePaths[randIndex]);
         }
-        Thread.Sleep(minus);
+        Thread.Sleep(minus*60*1000);
       }
     }
   }

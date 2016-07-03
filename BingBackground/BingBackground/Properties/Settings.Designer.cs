@@ -94,5 +94,29 @@ namespace BingBackground.Properties {
                 this["DownloadSite"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int RunMode {
+            get {
+                return ((int)(this["RunMode"]));
+            }
+            set {
+                this["RunMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int ChangeInterval {
+            get {
+                return ((int)(this["ChangeInterval"]));
+            }
+            set {
+                this["ChangeInterval"] = value;
+            }
+        }
     }
 }
