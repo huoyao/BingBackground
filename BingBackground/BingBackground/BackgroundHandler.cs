@@ -9,6 +9,7 @@ namespace BingBackground
   using System;
   using System.Drawing;
   using System.IO;
+  using System.Linq;
   using System.Net;
   using System.Runtime.InteropServices;
   using System.Windows.Forms;
@@ -17,10 +18,10 @@ namespace BingBackground
 
   public enum PicturePosition
   {
-    Tile, 
-    Center, 
-    Stretch, 
-    Fit, 
+    Tile,
+    Center,
+    Stretch,
+    Fit,
     Fill
   }
 
@@ -36,8 +37,8 @@ namespace BingBackground
     {
       BackgroundRecPath = Properties.Settings.Default.BackgroundRecFile;
       ImgSaveFolder = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), 
-        Properties.Settings.Default.ImgSaveFolder, 
+        Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+        Properties.Settings.Default.ImgSaveFolder,
         DateTime.Now.Year.ToString());
       using (var sr = new StreamReader(BackgroundRecPath))
       {
@@ -51,14 +52,16 @@ namespace BingBackground
       {
         Console.WriteLine("Downloading JSON...");
         var jsonString = webClient.DownloadString(Properties.Settings.Default.DownloadSourcePath);
-        return JsonConvert.DeserializeObject<dynamic>(jsonString);
+        var startIndex = jsonString.IndexOf("\"urlbase\":\"", StringComparison.OrdinalIgnoreCase) + 11;
+        var endIndex = jsonString.IndexOf("\",\"copyright\":", StringComparison.OrdinalIgnoreCase);
+        return jsonString.Substring(startIndex, endIndex - startIndex);
       }
     }
 
     public static string GetBackgroundUrlBase()
     {
       dynamic jsonObject = DownloadJson();
-      return Properties.Settings.Default.DownloadSite + jsonObject.images[0].urlbase;
+      return Properties.Settings.Default.DownloadSite + jsonObject;
     }
 
     /*
