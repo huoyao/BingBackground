@@ -47,7 +47,6 @@
             "*.*",
             SearchOption.AllDirectories);
         }
-
       }
     }
 
