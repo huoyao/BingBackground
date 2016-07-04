@@ -15,6 +15,8 @@
 
     private static void Main(string[] args)
     {
+      if (!Directory.Exists(BackgroundHandler.ImgSaveFolder))
+        Directory.CreateDirectory(BackgroundHandler.ImgSaveFolder);
       filePaths = Directory.GetFiles(
         Directory.GetParent(BackgroundHandler.ImgSaveFolder).ToString(),
         "*.*", SearchOption.AllDirectories);
@@ -64,7 +66,7 @@
           var randIndex = rand.Next(filePaths.Count());
           BackgroundHandler.SetBackground(filePaths[randIndex]);
         }
-        Thread.Sleep(minus*60*1000);
+        Thread.Sleep(minus * 60 * 1000);
       }
     }
   }
