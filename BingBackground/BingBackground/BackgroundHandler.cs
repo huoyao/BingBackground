@@ -131,7 +131,7 @@
     public static string GetBackgroundImagePath()
     {
       Directory.CreateDirectory(ImgSaveFolder);
-      return Path.Combine(ImgSaveFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm") + ".bmp");
+      return Path.Combine(ImgSaveFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm") + ".jpg");
     }
 
     public static void SaveBackground(Image background)

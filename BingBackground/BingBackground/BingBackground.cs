@@ -6,6 +6,7 @@
   using System;
   using System.Diagnostics.CodeAnalysis;
   using System.IO;
+  using System.Linq.Expressions;
 
   [SuppressMessage("ReSharper", "FunctionNeverReturns")]
   class BingBackground
@@ -17,11 +18,15 @@
     {
       filePaths = Directory.GetFiles(
         Directory.GetParent(BackgroundHandler.ImgSaveFolder).ToString(),
-        "*.*", SearchOption.AllDirectories);
+        "*.jpg", SearchOption.AllDirectories);
       new Thread(UpdateBackgroundFromWeb).Start();
+      new Thread(WingsPapersCopy).Start();
       if (Properties.Settings.Default.RunMode == 1)
+      {
         new Thread(() => ChangeLocalBackground(Properties.Settings.Default.ChangeInterval)).Start();
+      }
     }
+      
 
     private static void UpdateBackgroundFromWeb()
     {
@@ -64,9 +69,17 @@
           var randIndex = rand.Next(filePaths.Count());
           BackgroundHandler.SetBackground(filePaths[randIndex]);
         }
-        Thread.Sleep(minus*60*1000);
+        Thread.Sleep(minus * 60 * 1000);
+      }
+    }
+
+    private static void WingsPapersCopy()
+    {
+      while (true)
+      {
+        ImageCopy.ImageCopyHandler();
+        Thread.Sleep(30 * 60 * 1000);  //30 minus
       }
     }
   }
-
 }
