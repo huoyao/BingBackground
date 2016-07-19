@@ -16,6 +16,8 @@
 
     private static void Main(string[] args)
     {
+      if (!Directory.Exists(BackgroundHandler.ImgSaveFolder))
+        Directory.CreateDirectory(BackgroundHandler.ImgSaveFolder);
       filePaths = Directory.GetFiles(
         Directory.GetParent(BackgroundHandler.ImgSaveFolder).ToString(),
         "*.jpg", SearchOption.AllDirectories);
