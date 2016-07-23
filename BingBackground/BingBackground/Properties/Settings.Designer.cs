@@ -118,5 +118,18 @@ namespace BingBackground.Properties {
                 this["ChangeInterval"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\leta\\AppData\\Local\\Packages\\Microsoft.Windows.ContentDeliveryManager_cw5" +
+            "n1h2txyewy\\LocalState\\Assets")]
+        public string LockScreenBgDir {
+            get {
+                return ((string)(this["LockScreenBgDir"]));
+            }
+            set {
+                this["LockScreenBgDir"] = value;
+            }
+        }
     }
 }

@@ -26,5 +26,8 @@
     <Setting Name="ChangeInterval" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
+    <Setting Name="LockScreenBgDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\leta\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

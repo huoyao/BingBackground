@@ -137,7 +137,7 @@
     public static void SaveBackground(Image background)
     {
       Console.WriteLine("Saving background...");
-      background?.Save(GetBackgroundImagePath(), System.Drawing.Imaging.ImageFormat.Bmp);
+      background?.Save(GetBackgroundImagePath(), System.Drawing.Imaging.ImageFormat.Jpeg);
     }
 
     private static PicturePosition GetPosition()

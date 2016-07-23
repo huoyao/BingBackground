@@ -79,7 +79,9 @@
     {
       while (true)
       {
-        ImageCopy.ImageCopyHandler();
+        LockScreenBgSaver.ImageCopyHandler(
+          Properties.Settings.Default.LockScreenBgDir,
+          Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
         Thread.Sleep(30 * 60 * 1000);  //30 minus
       }
     }
