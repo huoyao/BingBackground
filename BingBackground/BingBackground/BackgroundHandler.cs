@@ -131,13 +131,14 @@
     public static string GetBackgroundImagePath()
     {
       Directory.CreateDirectory(ImgSaveFolder);
-      return Path.Combine(ImgSaveFolder, DateTime.Now.ToString("yyyy-MM-dd-HH-mm") + ".jpg");
+      return Path.Combine(ImgSaveFolder, DateTime.Now.ToString("yyyy-MM-dd") + ".jpg");
     }
 
     public static void SaveBackground(Image background)
     {
       Console.WriteLine("Saving background...");
-      background?.Save(GetBackgroundImagePath(), System.Drawing.Imaging.ImageFormat.Jpeg);
+      if(!File.Exists(GetBackgroundImagePath()))
+        background?.Save(GetBackgroundImagePath(), System.Drawing.Imaging.ImageFormat.Jpeg);
     }
 
     private static PicturePosition GetPosition()

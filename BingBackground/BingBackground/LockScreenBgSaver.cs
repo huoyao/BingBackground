@@ -4,6 +4,7 @@
   using System.IO;
   using System;
   using System.Collections.Generic;
+  using System.Configuration;
   using System.Linq;
   using System.Threading;
 
@@ -23,18 +24,18 @@
         return;
       }
       Init(sourceImgDir,destImgDir);
-      DeleteTempFiles();
-      CopyImageToTempFolder();
-      ClassifyTempFiles();
+      //DeleteTempFiles();
+      CopyImage();
+      //ClassifyTempFiles();
     }
 
     private static void Init(string source,string dest)
     {
       sourceDir = source;
       tempDir = Path.Combine(dest, @"tempDir");
-      destDir = Path.Combine(dest,@"BackGroundImage",@"WingPaper");
+      destDir = Path.Combine(dest,@"BackGroundImages",@"WingPaper");
       phoneBgDir = Path.Combine(dest, @"PhoneBg");
-      filesProcessed = Path.Combine(tempDir, @"ImgsProcessed.txt");
+      filesProcessed = Path.Combine(phoneBgDir, @"ImgsProcessed.txt");
 
       if (!Directory.Exists(tempDir)) Directory.CreateDirectory(tempDir);
       if (!Directory.Exists(destDir)) Directory.CreateDirectory(destDir);
@@ -44,15 +45,26 @@
         File.WriteAllText(filesProcessed, string.Empty);
     }
 
-    private static void CopyImageToTempFolder()
+    private static void CopyImage()
     {
       var processedFiles = File.ReadAllLines(filesProcessed);
       foreach (var file in Directory.GetFiles(sourceDir))
       {
         var imageName = Path.GetFileNameWithoutExtension(file);
-        var tempFile = string.Format("{0}\\{1}.jpg", tempDir, imageName);
-        if (!File.Exists(tempFile) && !processedFiles.Contains(tempFile))
-          File.Copy(file, tempFile, true);
+        var destFile =Path.Combine(destDir,imageName+".jpg");
+        var phoneFile = Path.Combine(phoneBgDir, imageName + ".jpg");
+        if (!processedFiles.Contains(phoneFile))
+        {
+          File.Copy(file, phoneFile, true);
+          if(IsHDImage(phoneFile) && !File.Exists(destFile))
+            File.Move(phoneFile,destFile);
+          else if(!IsPhoneImage(phoneFile))
+            File.Delete(phoneFile);
+          using (var fileHandler=File.AppendText(filesProcessed))
+          {
+            fileHandler.WriteLine(phoneFile);
+          }
+        }
       }
     }
 
@@ -112,8 +124,11 @@
     {
       try
       {
-        var img = Image.FromFile(file, true);
-        return img.Width >= 1920 && img.Height >= 1080;
+        using (var bitMap=new Bitmap(file))
+        {
+          Image img=new Bitmap(bitMap);
+          return img.Width >= 1920 && img.Height >= 1080;
+        }
       }
       catch (Exception)
       {
@@ -125,8 +140,11 @@
     {
       try
       {
-        var img = Image.FromFile(file, true);
-        return img.Width >= 1080 && img.Height >= 1920 && img.Height>img.Width;
+        using (var bitMap=new Bitmap(file))
+        {
+          Image img = new Bitmap(bitMap);
+          return img.Width >= 1080 && img.Height >= 1920 && img.Height > img.Width;
+        }
       }
       catch (Exception)
       {

@@ -104,7 +104,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BackgroundRec.txt" />
     <Content Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
