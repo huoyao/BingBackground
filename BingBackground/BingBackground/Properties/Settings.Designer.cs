@@ -110,12 +110,12 @@ namespace BingBackground.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int ChangeInterval {
+        public int BGChangeInterval {
             get {
-                return ((int)(this["ChangeInterval"]));
+                return ((int)(this["BGChangeInterval"]));
             }
             set {
-                this["ChangeInterval"] = value;
+                this["BGChangeInterval"] = value;
             }
         }
         

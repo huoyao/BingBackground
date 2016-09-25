@@ -25,10 +25,9 @@
       new Thread(WingsPapersCopy).Start();
       if (Properties.Settings.Default.RunMode == 1)
       {
-        new Thread(() => ChangeLocalBackground(Properties.Settings.Default.ChangeInterval)).Start();
+        new Thread(() => ChangeLocalBackground(Properties.Settings.Default.BGChangeInterval)).Start();
       }
     }
-      
 
     private static void UpdateBackgroundFromWeb()
     {
